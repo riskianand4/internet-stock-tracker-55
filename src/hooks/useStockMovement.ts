@@ -1,0 +1,82 @@
+import { useState, useEffect, useCallback } from 'react';
+import { StockMovement } from '@/types/stock-movement';
+import { mockStockMovements } from '@/data/mockStockMovements';
+import { useToast } from '@/hooks/use-toast';
+
+export const useStockMovement = () => {
+  const [movements, setMovements] = useState<StockMovement[]>(mockStockMovements);
+  const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
+
+  const addMovement = useCallback(async (movement: Omit<StockMovement, 'id' | 'timestamp'>) => {
+    setLoading(true);
+    try {
+      const newMovement: StockMovement = {
+        ...movement,
+        id: `mov-${Date.now()}`,
+        timestamp: new Date()
+      };
+      
+      setMovements(prev => [newMovement, ...prev]);
+      
+      toast({
+        title: "Stock Movement Recorded",
+        description: `${movement.type} movement for ${movement.productName} recorded successfully`,
+      });
+      
+      return newMovement;
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to record stock movement",
+        variant: "destructive",
+      });
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  }, [toast]);
+
+  const getMovementsByProduct = useCallback((productId: string) => {
+    return movements.filter(movement => movement.productId === productId);
+  }, [movements]);
+
+  const getMovementsByType = useCallback((type: StockMovement['type']) => {
+    return movements.filter(movement => movement.type === type);
+  }, [movements]);
+
+  const getMovementsByDateRange = useCallback((startDate: Date, endDate: Date) => {
+    return movements.filter(movement => 
+      movement.timestamp >= startDate && movement.timestamp <= endDate
+    );
+  }, [movements]);
+
+  const getMovementStats = useCallback(() => {
+    const today = new Date();
+    const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const lastMonth = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+    const weekMovements = getMovementsByDateRange(lastWeek, today);
+    const monthMovements = getMovementsByDateRange(lastMonth, today);
+
+    return {
+      total: movements.length,
+      thisWeek: weekMovements.length,
+      thisMonth: monthMovements.length,
+      inMovements: movements.filter(m => m.type === 'IN').length,
+      outMovements: movements.filter(m => m.type === 'OUT').length,
+      adjustments: movements.filter(m => m.type === 'ADJUSTMENT').length,
+      transfers: movements.filter(m => m.type === 'TRANSFER').length,
+    };
+  }, [movements, getMovementsByDateRange]);
+
+  return {
+    movements,
+    loading,
+    addMovement,
+    getMovementsByProduct,
+    getMovementsByType,
+    getMovementsByDateRange,
+    getMovementStats,
+  };
+};
