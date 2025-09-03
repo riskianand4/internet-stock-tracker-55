@@ -58,7 +58,7 @@ export function MobileBottomNav() {
           const Icon = item.icon;
           const isActive = currentPath === item.url || 
             (item.url === "/" && currentPath === "/") ||
-            (item.title === "More" && !["/", "/products", "/stats", "/alerts"].includes(currentPath));
+            (item.title === "More" && currentPath === "/more");
 
           return (
             <NavLink

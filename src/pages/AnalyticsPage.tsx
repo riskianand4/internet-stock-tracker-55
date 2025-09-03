@@ -110,10 +110,10 @@ const AnalyticsPage = () => {
             {/* Quick Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
               {[
-                { label: 'Model Aktif', value: '12', icon: Brain, color: 'primary' },
-                { label: 'Tingkat Akurasi', value: '94.2%', icon: Target, color: 'success' },
-                { label: 'Prediksi', value: '1,247', icon: TrendingUp, color: 'accent' },
-                { label: 'Wawasan', value: '38', icon: Zap, color: 'warning' }
+                { label: 'Model Aktif', value: '12', icon: Brain, colorClass: 'text-primary' },
+                { label: 'Tingkat Akurasi', value: '94.2%', icon: Target, colorClass: 'text-green-500' },
+                { label: 'Prediksi', value: '1,247', icon: TrendingUp, colorClass: 'text-blue-500' },
+                { label: 'Wawasan', value: '38', icon: Zap, colorClass: 'text-amber-500' }
               ].map((stat, index) => (
                 <motion.div
                   key={stat.label}
@@ -122,7 +122,7 @@ const AnalyticsPage = () => {
                   transition={{ delay: index * 0.1 }}
                 >
                   <Card className="p-4 text-center glass">
-                    <stat.icon className={`w-6 h-6 text-${stat.color} mx-auto mb-2`} />
+                    <stat.icon className={`w-6 h-6 ${stat.colorClass} mx-auto mb-2`} />
                     <div className="text-xl font-bold">{stat.value}</div>
                     <div className="text-xs text-muted-foreground">{stat.label}</div>
                   </Card>
