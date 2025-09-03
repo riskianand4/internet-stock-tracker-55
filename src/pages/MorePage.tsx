@@ -250,12 +250,12 @@ const MorePage = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <Link to={item.path}>
-                        <Card className="p-4 hover:shadow-md transition-all duration-200 glass group">
+                      <Link to={item.path} className="block">
+                        <Card className="p-4 hover:shadow-md transition-all duration-200 glass group cursor-pointer">
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                              <div className={`p-2 rounded-lg bg-${item.color}/10`}>
-                                <Icon className={`w-5 h-5 text-${item.color}`} />
+                              <div className="p-2 rounded-lg bg-primary/10">
+                                <Icon className="w-5 h-5 text-primary" />
                               </div>
                               <div>
                                 <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">
