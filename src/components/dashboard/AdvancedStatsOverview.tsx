@@ -39,19 +39,19 @@ const AdvancedStatsOverview = () => {
   };
 
   return (
-    <div className="min-h-screen bg-muted/10 mobile-responsive-padding py-3 md:py-6">
+    <div className="min-h-screen bg-muted/10 px-2 sm:px-4 md:px-6 lg:px-8 py-4 md:py-6 lg:py-8">
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="max-w-7xl mx-auto mobile-responsive-spacing"
+        className="max-w-7xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8"
       >
         {/* Header */}
-        <motion.div variants={itemVariants} className="text-center">
-          <h1 className="mobile-responsive-text font-bold text-primary mb-2">
+        <motion.div variants={itemVariants} className="text-center px-2 sm:px-4">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-2 sm:mb-4">
             Dashboard Analitik Lanjutan
           </h1>
-          <p className="text-muted-foreground text-sm md:text-lg">
+          <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
             Wawasan inventori cerdas dan analitik prediktif
           </p>
         </motion.div>
@@ -73,9 +73,9 @@ const AdvancedStatsOverview = () => {
         </motion.div>
 
         {/* Two-column layout for main analytics */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-3 md:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {/* Left column - Charts */}
-          <div className="xl:col-span-2 space-y-3 md:space-y-8">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-6 lg:space-y-8">
             <motion.div variants={itemVariants}>
               <TrendAnalysis timeFilter={timeFilter} dateRange={dateRange} />
             </motion.div>
@@ -90,7 +90,7 @@ const AdvancedStatsOverview = () => {
           </div>
 
           {/* Right column - Insights & Predictions */}
-          <div className="space-y-3 md:space-y-8">
+          <div className="space-y-4 sm:space-y-6 lg:space-y-8">
             <motion.div variants={itemVariants}>
               <SmartInsights timeFilter={timeFilter} />
             </motion.div>
