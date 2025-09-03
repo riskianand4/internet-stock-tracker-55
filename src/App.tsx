@@ -12,6 +12,7 @@ import StatsPage from "./pages/StatsPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import ProductsPage from "./pages/ProductsPage";
 import InventoryPage from "./pages/InventoryPage";
+import MorePage from "./pages/MorePage";
 import OrdersPage from "./pages/OrdersPage";
 import AlertsPage from "./pages/AlertsPage";
 import UsersPage from "./pages/UsersPage";
@@ -57,6 +58,7 @@ const App = () => (
             <Route path="/security" element={<SecurityPage />} />
             <Route path="/ai-studio" element={<AIStudioPage />} />
             <Route path="/api-management" element={<ApiManagementPage />} />
+            <Route path="/more" element={<MorePage />} />
             <Route path="*" element={<NotFound />} />
                 </Routes>
               </ApiProvider>
