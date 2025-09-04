@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarHeader, useSidebar } from '@/components/ui/sidebar';
-import { Package, BarChart3, Settings, Users, Plus, Wifi, Home, Archive, TrendingUp, ShoppingCart, AlertTriangle, FileText, Brain, Key, BookOpen } from 'lucide-react';
+import { Package, BarChart3, Plus, Wifi, Home, TrendingUp } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -31,48 +31,6 @@ const menuItems = [{
   icon: TrendingUp,
   roles: ['admin', 'super_admin'],
   description: "Track inventory changes"
-}, {
-  title: "Stock Opname",
-  url: "/stock-opname",
-  icon: Archive,
-  roles: ['admin', 'super_admin'],
-  description: "Physical stock count"
-}, {
-  title: "Alerts",
-  url: "/alerts",
-  icon: AlertTriangle,
-  roles: ['user', 'admin', 'super_admin'],
-  description: "System notifications"
-}, {
-  title: "Reports",
-  url: "/reports",
-  icon: FileText,
-  roles: ['user', 'admin', 'super_admin'],
-  description: "Generate detailed reports"
-}, {
-  title: "Users",
-  url: "/users",
-  icon: Users,
-  roles: ['admin', 'super_admin'],
-  description: "Manage system users"
-}, {
-  title: "AI Studio",
-  url: "/ai-studio",
-  icon: Brain,
-  roles: ['admin', 'super_admin'],
-  description: "Advanced AI features"
-}, {
-  title: "Documentation",
-  url: "/documentation",
-  icon: BookOpen,
-  roles: ['user', 'admin', 'super_admin'],
-  description: "System documentation"
-}, {
-  title: "API Management",
-  url: "/api-management",
-  icon: Key,
-  roles: ['super_admin'],
-  description: "API keys and monitoring"
 }];
 export function AppSidebar() {
   const {
