@@ -1,58 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import ModernLoginPage from '@/components/auth/ModernLoginPage';
 import MainLayout from '@/components/layout/MainLayout';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { motion } from 'framer-motion';
+import StockTransactionForm from '@/components/inventory/StockTransactionForm';
 import StockMovementHistory from '@/components/inventory/StockMovementHistory';
-import StockVelocityAnalysis from '@/components/analytics/StockVelocityAnalysis';
-import CostAnalysis from '@/components/analytics/CostAnalysis';
-import SupplierPerformance from '@/components/analytics/SupplierPerformance';
-import AutomatedStockAlerts from '@/components/alerts/AutomatedStockAlerts';
 
 const StockMovementPage = () => {
   const { user } = useAuth();
+  const [refreshHistory, setRefreshHistory] = useState(false);
 
   if (!user) {
     return <ModernLoginPage />;
   }
 
+  const handleTransactionComplete = () => {
+    setRefreshHistory(!refreshHistory);
+  };
+
   return (
     <MainLayout>
       <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold">Advanced Stock Analytics</h1>
-          <p className="text-muted-foreground">
-            Comprehensive stock movement tracking, velocity analysis, and automated alerts
-          </p>
-        </div>
+        {/* Header */}
+        <motion.div 
+          className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div>
+            <h1 className="text-3xl font-bold">Stock Movement</h1>
+            <p className="text-muted-foreground">
+              Input transaksi stok masuk, keluar, dan adjustment
+            </p>
+          </div>
+        </motion.div>
 
-        <Tabs defaultValue="movements" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="movements">Stock Movements</TabsTrigger>
-            <TabsTrigger value="velocity">Velocity Analysis</TabsTrigger>
-            <TabsTrigger value="costs">Cost Analysis</TabsTrigger>
-            <TabsTrigger value="suppliers">Supplier Performance</TabsTrigger>
-            <TabsTrigger value="alerts">Automated Alerts</TabsTrigger>
+        <Tabs defaultValue="input" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="input">Input Transaksi</TabsTrigger>
+            <TabsTrigger value="history">History Pergerakan</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="movements" className="space-y-4">
-            <StockMovementHistory />
+          <TabsContent value="input" className="space-y-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+            >
+              <StockTransactionForm onTransactionComplete={handleTransactionComplete} />
+            </motion.div>
           </TabsContent>
 
-          <TabsContent value="velocity" className="space-y-4">
-            <StockVelocityAnalysis />
-          </TabsContent>
-
-          <TabsContent value="costs" className="space-y-4">
-            <CostAnalysis />
-          </TabsContent>
-
-          <TabsContent value="suppliers" className="space-y-4">
-            <SupplierPerformance />
-          </TabsContent>
-
-          <TabsContent value="alerts" className="space-y-4">
-            <AutomatedStockAlerts />
+          <TabsContent value="history" className="space-y-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              key={`history-${refreshHistory}`}
+            >
+              <StockMovementHistory />
+            </motion.div>
           </TabsContent>
         </Tabs>
       </div>
