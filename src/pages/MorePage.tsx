@@ -34,127 +34,16 @@ const MorePage = () => {
     return <ModernLoginPage />;
   }
 
-  // Menu items organized by category
+  // Temporarily show only essential features
   const menuSections = [
     {
-      title: "Inventory Management",
+      title: "Coming Soon",
       items: [
         {
-          title: "Inventory",
-          description: "Kelola stok dan inventori",
-          icon: Package,
-          path: "/inventory",
-          color: "primary",
-          roles: ['user', 'admin', 'super_admin']
-        },
-        {
-          title: "Stock Movement",
-          description: "Pelacakan pergerakan stok",
-          icon: ArrowUpDown,
-          path: "/stock-movement",
-          color: "accent",
-          roles: ['user', 'admin', 'super_admin']
-        },
-        {
-          title: "Stock Opname",
-          description: "Audit dan penghitungan stok",
-          icon: ClipboardList,
-          path: "/stock-opname",
-          color: "warning",
-          roles: ['admin', 'super_admin']
-        }
-      ]
-    },
-    {
-      title: "Reports & Analytics",
-      items: [
-        {
-          title: "Advanced Analytics",
-          description: "Analitik lanjutan dan prediksi",
-          icon: BarChart2,
-          path: "/analytics",
-          color: "primary",
-          roles: ['admin', 'super_admin']
-        },
-        {
-          title: "Stock Reports",
-          description: "Laporan komprehensif stok",
-          icon: FileText,
-          path: "/reports",
-          color: "success",
-          roles: ['user', 'admin', 'super_admin']
-        },
-        {
-          title: "Orders",
-          description: "Manajemen pesanan",
-          icon: Archive,
-          path: "/orders",
-          color: "accent",
-          roles: ['user', 'admin', 'super_admin']
-        }
-      ]
-    },
-    {
-      title: "AI & Intelligence",
-      items: [
-        {
-          title: "AI Studio",
-          description: "Studio AI dan machine learning", 
-          icon: Brain,
-          path: "/ai-studio",
-          color: "primary",
-          roles: ['admin', 'super_admin']
-        },
-        {
-          title: "API Management",
-          description: "Kelola API dan integrasi",
-          icon: Zap,
-          path: "/api-management",
-          color: "warning",
-          roles: ['super_admin']
-        }
-      ]
-    },
-    {
-      title: "System & Administration",
-      items: [
-        {
-          title: "Users Management",
-          description: "Kelola pengguna dan peran",
-          icon: Users,
-          path: "/users",
-          color: "primary",
-          roles: ['admin', 'super_admin']
-        },
-        {
-          title: "Database",
-          description: "Manajemen database",
-          icon: Database,
-          path: "/database",
-          color: "accent",
-          roles: ['super_admin']
-        },
-        {
-          title: "Security",
-          description: "Keamanan dan audit",
-          icon: Shield,
-          path: "/security",
-          color: "destructive",
-          roles: ['super_admin']
-        },
-        {
-          title: "Settings",
-          description: "Pengaturan sistem",
+          title: "More Features",
+          description: "Fitur tambahan akan segera hadir",
           icon: Settings,
-          path: "/settings",
-          color: "secondary",
-          roles: ['user', 'admin', 'super_admin']
-        },
-        {
-          title: "Documentation",
-          description: "Dokumentasi dan bantuan",
-          icon: BookOpen,
-          path: "/documentation",
+          path: "#",
           color: "muted",
           roles: ['user', 'admin', 'super_admin']
         }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Home, Package, BarChart3, AlertTriangle, Settings, User, Brain, Users } from 'lucide-react';
+import { Home, Package, BarChart3, ArrowUpDown } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
 const bottomNavItems = [
@@ -24,16 +24,10 @@ const bottomNavItems = [
     roles: ['user', 'admin', 'super_admin']
   },
   {
-    title: "Alerts",
-    url: "/alerts",
-    icon: AlertTriangle,
-    roles: ['user', 'admin', 'super_admin']
-  },
-  {
-    title: "More",
-    url: "/more",
-    icon: Settings,
-    roles: ['user', 'admin', 'super_admin']
+    title: "Stock Movement",
+    url: "/stock-movement",
+    icon: ArrowUpDown,
+    roles: ['admin', 'super_admin']
   }
 ];
 
