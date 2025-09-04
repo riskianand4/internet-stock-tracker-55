@@ -37,6 +37,55 @@ export const useStockMovement = () => {
     }
   }, [toast]);
 
+  const updateMovement = useCallback(async (updatedMovement: StockMovement) => {
+    setLoading(true);
+    try {
+      setMovements(prev => 
+        prev.map(movement => 
+          movement.id === updatedMovement.id ? updatedMovement : movement
+        )
+      );
+      
+      toast({
+        title: "Stock Movement Updated",
+        description: `Movement for ${updatedMovement.productName} updated successfully`,
+      });
+      
+      return updatedMovement;
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to update stock movement",
+        variant: "destructive",
+      });
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  }, [toast]);
+
+  const deleteMovement = useCallback(async (movementId: string) => {
+    setLoading(true);
+    try {
+      setMovements(prev => prev.filter(movement => movement.id !== movementId));
+      
+      toast({
+        title: "Stock Movement Deleted",
+        description: "Movement deleted successfully",
+      });
+      
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to delete stock movement",
+        variant: "destructive",
+      });
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  }, [toast]);
+
   const getMovementsByProduct = useCallback((productId: string) => {
     return movements.filter(movement => movement.productId === productId);
   }, [movements]);
@@ -74,6 +123,8 @@ export const useStockMovement = () => {
     movements,
     loading,
     addMovement,
+    updateMovement,
+    deleteMovement,
     getMovementsByProduct,
     getMovementsByType,
     getMovementsByDateRange,

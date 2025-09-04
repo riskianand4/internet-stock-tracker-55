@@ -6,18 +6,40 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { ArrowUpCircle, ArrowDownCircle, RefreshCw, ArrowRightLeft, Calendar, Search, Filter, Download } from 'lucide-react';
+import { ArrowUpCircle, ArrowDownCircle, RefreshCw, ArrowRightLeft, Calendar, Search, Filter, Download, Edit, Trash2, Eye } from 'lucide-react';
 import { useStockMovement } from '@/hooks/useStockMovement';
 import { StockMovement } from '@/types/stock-movement';
 import { format } from 'date-fns';
+import EditStockMovementModal from './EditStockMovementModal';
+import { useAuth } from '@/contexts/AuthContext';
 
 const StockMovementHistory = () => {
-  const { movements, getMovementStats } = useStockMovement();
+  const { user } = useAuth();
+  const { movements, getMovementStats, updateMovement, deleteMovement } = useStockMovement();
   const [searchTerm, setSearchTerm] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('ALL');
   const [dateFilter, setDateFilter] = useState<string>('ALL');
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [selectedMovement, setSelectedMovement] = useState<StockMovement | null>(null);
   
   const stats = getMovementStats();
+
+  const handleEdit = (movement: StockMovement) => {
+    setSelectedMovement(movement);
+    setEditModalOpen(true);
+  };
+
+  const handleDelete = async (movementId: string) => {
+    if (window.confirm('Apakah Anda yakin ingin menghapus transaksi ini?')) {
+      await deleteMovement(movementId);
+    }
+  };
+
+  const handleUpdate = async (updatedMovement: StockMovement) => {
+    await updateMovement(updatedMovement);
+    setEditModalOpen(false);
+    setSelectedMovement(null);
+  };
 
   const getMovementIcon = (type: StockMovement['type']) => {
     switch (type) {
@@ -256,6 +278,7 @@ const StockMovementHistory = () => {
                   <TableHead>Reason</TableHead>
                   <TableHead>User</TableHead>
                   <TableHead>Location</TableHead>
+                  <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -292,6 +315,35 @@ const StockMovementHistory = () => {
                     <TableCell className="max-w-48 truncate">{movement.reason}</TableCell>
                     <TableCell>{movement.userName}</TableCell>
                     <TableCell>{movement.location}</TableCell>
+                    <TableCell>
+                      <div className="flex gap-1">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => {}}
+                        >
+                          <Eye className="w-4 h-4" />
+                        </Button>
+                        {(user?.role === 'admin' || user?.role === 'super_admin') && (
+                          <>
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => handleEdit(movement)}
+                            >
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => handleDelete(movement.id)}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </>
+                        )}
+                      </div>
+                    </TableCell>
                   </motion.tr>
                 ))}
               </TableBody>
@@ -306,6 +358,17 @@ const StockMovementHistory = () => {
           )}
         </CardContent>
       </Card>
+
+      {/* Edit Modal */}
+      <EditStockMovementModal
+        isOpen={editModalOpen}
+        onClose={() => {
+          setEditModalOpen(false);
+          setSelectedMovement(null);
+        }}
+        movement={selectedMovement}
+        onUpdate={handleUpdate}
+      />
     </div>
   );
 };
